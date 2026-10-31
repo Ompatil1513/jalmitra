@@ -1,0 +1,18 @@
+# Optional Blueprint for Render.com
+# Dashboard → New → Blueprint → connect this repo (or deploy Web Service manually)
+services:
+  - type: web
+    name: jalmitra-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:////tmp/jalmitra.db
+      - key: WEATHER_MODE
+        value: auto
+      - key: CORS_ORIGINS
+        sync: false   # set to your frontend URL after deploy, e.g. https://xxx.vercel.app
