@@ -28,11 +28,11 @@ export default function Assistant() {
     <>
       <h1 className="text-2xl font-bold text-green-800">{t("nav_assistant")}</h1>
       <Card>
-        <div className="mb-3 h-[55vh] space-y-3 overflow-y-auto rounded-lg bg-sky-50 p-3">
+        <div className="mb-3 h-[55vh] space-y-3 overflow-y-auto neu-in p-3">
           {msgs.map((m, i) => (
             <div key={i} className={`flex gap-2 ${m.role === "me" ? "justify-end" : ""}`}>
               {m.role === "bot" && <Bot className="mt-1 shrink-0 text-green-700" />}
-              <div className={`max-w-[85%] whitespace-pre-line rounded-2xl px-3 py-2 ${m.role === "me" ? "bg-green-700 text-white" : "bg-white shadow-sm"}`}>{m.text}</div>
+              <div className={`max-w-[85%] whitespace-pre-line rounded-2xl px-3 py-2 ${m.role === "me" ? "bg-gradient-to-br from-green-600 to-green-800 text-white shadow-raised-sm" : "bg-field shadow-raised-sm"}`}>{m.text}</div>
               {m.role === "me" && <User className="mt-1 shrink-0 text-slate-500" />}
             </div>
           ))}
@@ -40,7 +40,7 @@ export default function Assistant() {
           <div ref={end} />
         </div>
         <Msg>{err}</Msg>
-        <div className="mb-3 flex flex-wrap gap-2">{chips.map((c) => <button key={c} className="rounded-full border border-green-600 px-3 py-1 text-sm text-green-800 hover:bg-green-50" onClick={() => send(t(c))}>{t(c)}</button>)}</div>
+        <div className="mb-3 flex flex-wrap gap-2">{chips.map((c) => <button key={c} className="btn-light !min-h-[40px] !rounded-full !px-4 !py-1.5 text-sm" onClick={() => send(t(c))}>{t(c)}</button>)}</div>
         <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); send(); }}>
           <input className="input" value={text} maxLength={500} onChange={(e) => setText(e.target.value)} placeholder={t("ask_placeholder")} aria-label={t("ask_placeholder")} />
           <button className="btn" disabled={busy}><Send size={18} />{t("send")}</button>

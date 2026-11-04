@@ -26,7 +26,7 @@ export default function Water() {
               <Stat icon={Waves} tone="green" label={t("used_7d")} value={`${fmt(w.used_7d)} ${t("l")}`} sub={`${t("avg")} ${fmt(w.avg_daily_7d)} ${t("l")}/${t("day")}`} />
               <Stat icon={Waves} tone={w.days_left_at_current_use < 7 ? "red" : "green"} label={t("lasts")} value={w.days_left_at_current_use ?? "–"} sub={t("days")} />
             </div>
-            <div className="h-4 overflow-hidden rounded-full bg-sky-100"><div className="h-full bg-sky-500" style={{ width: `${Math.min(100, w.percent)}%` }} /></div>
+            <div className="neu-in h-6 overflow-hidden p-1"><div className="h-full rounded-full bg-gradient-to-r from-sky-300 to-sky-600" style={{ width: `${Math.min(100, w.percent)}%` }} /></div>
             <div className="grid gap-4 lg:grid-cols-2">
               <Card title={t("log_usage")} icon={PlusCircle}>
                 <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); act(async () => { await api(`/farms/${farm.id}/water/usage`, { method: "POST", body: { liters: +use.liters, note: use.note } }); setUse({ liters: "", note: "" }); }); }}>

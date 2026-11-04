@@ -2,8 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-body { @apply bg-sky-50 text-slate-800 text-base; }
-.input { @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500; }
-.btn { @apply inline-flex items-center justify-center gap-2 rounded-lg bg-green-700 px-4 py-2 font-medium text-white hover:bg-green-800 disabled:opacity-50; }
-.btn-light { @apply inline-flex items-center justify-center gap-2 rounded-lg border border-green-700 bg-white px-4 py-2 font-medium text-green-800 hover:bg-green-50 disabled:opacity-50; }
-@media print { aside, header, .no-print { display: none !important; } main { padding: 0 !important; } }
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-field font-sans text-[17px] text-soil-800 antialiased; }
+  h1, h2, h3 { @apply font-display; }
+  :focus-visible { @apply outline-none ring-4 ring-green-400/60; }
+}
+
+@layer components {
+  /* Soft raised surface (neumorphism) */
+  .neu { @apply rounded-3xl bg-field shadow-raised; }
+  .neu-sm { @apply rounded-2xl bg-field shadow-raised-sm; }
+  /* Pressed / sunken surface */
+  .neu-in { @apply rounded-2xl bg-field shadow-pressed; }
+  /* Frosted glass on top of the green field hero */
+  .glass { @apply rounded-2xl border border-white/30 bg-white/15 backdrop-blur-md; }
+
+  .input {
+    @apply w-full rounded-2xl border-0 bg-field px-4 py-3 text-soil-800 shadow-pressed placeholder:text-soil-600/50 focus:outline-none focus:ring-4 focus:ring-green-400/50;
+  }
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-green-600 to-green-800 px-5 py-2.5 font-semibold text-white shadow-raised-sm transition active:translate-y-px active:shadow-pressed disabled:opacity-50;
+  }
+  .btn:hover { @apply from-green-500 to-green-700; }
+  .btn-light {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl bg-field px-5 py-2.5 font-semibold text-green-800 shadow-raised-sm transition hover:text-green-900 active:shadow-pressed disabled:opacity-50;
+  }
+  .field-rows {
+    background-image: repeating-linear-gradient(115deg, rgba(255,255,255,.07) 0 14px, rgba(255,255,255,0) 14px 34px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+@media print {
+  aside, header, nav, .no-print { display: none !important; }
+  main { padding: 0 !important; }
+  body { background: #fff; }
+  .neu, .neu-sm, .neu-in { box-shadow: none !important; border: 1px solid #ccc; }
+}
